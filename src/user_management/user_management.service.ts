@@ -46,7 +46,7 @@ export class UserManagementService {
       console.log(user);
       return user;
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException('Something its wrong!');
     }
   }
 
@@ -54,7 +54,7 @@ export class UserManagementService {
     try {
       return this.management_repo.findOneBy({ id });
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException('Something its wrong!');
     }
   }
 
@@ -69,7 +69,11 @@ export class UserManagementService {
   }
 
   async delete(id: string) {
-    return await this.management_repo.delete(id);
+    try {
+      return await this.management_repo.delete(id);
+    } catch (error) {
+      throw new BadRequestException('Something its wrong!');
+    }
   }
 
   async existsUserId(id: string) {
@@ -77,7 +81,7 @@ export class UserManagementService {
       const existUser = await this.get_user(id);
       return existUser;
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new BadRequestException('Something its wrong!');
     }
   }
 
