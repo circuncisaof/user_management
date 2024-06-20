@@ -43,7 +43,11 @@ export class UserManagementService {
   async get_user(id: string): Promise<UserManageEntity> {
     try {
       const user = await this.management_repo.findOneBy({ id });
-      console.log(user);
+      console.log('46:', user);
+      if (!user) {
+        throw new BadRequestException('User its not existe or id user error');
+      }
+
       return user;
     } catch (error) {
       throw new BadRequestException('Something its wrong!');
